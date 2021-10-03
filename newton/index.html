@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  
+    <h1 class="text-center py-5">Método de Newton</h1>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <div class="input-group py-5">
+        <input type="number" class="form-control" aria-label="Exemplo do tamanho do input" aria-describedby="inputGroup-sizing-sm" placeholder="Extremo esquerdo do intervalo 'a'" id="a">
+        <input type="number" class="form-control" aria-label="Exemplo do tamanho do input" aria-describedby="inputGroup-sizing-sm" placeholder="Extremo direito do intervalo 'b'" id="b">
+        <input type="number" class="form-control" aria-label="Exemplo do tamanho do input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor entre o intervalo" id="initialValue">
+        <input type="number" class="form-control" aria-label="Exemplo do tamanho do input" aria-describedby="inputGroup-sizing-sm" placeholder="Erro absoluto" id="erro">
+        <input type="number" class="form-control" aria-label="Exemplo do tamanho do input" aria-describedby="inputGroup-sizing-sm" placeholder="Número máximo de iterações" id="i">
+        <button onclick="newtonMethod()" class="form-control btn btn-primary" type="submit">Enviar</button>
+      </div>
+      
+  
+      <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Valor</th>
+                <th scope="col">f'(x)</th>
+                <th scope="col">f(x)</th>
+                <th scope="col">Error</th>
+              </tr>
+            </thead>
+            <tbody id="table">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      input[type='number'] {
+        -moz-appearance:textfield;
+        }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    </style>
+
+    <script>
+      function functionFx(x) { return x*x*x - 9*x + 5 }
+
+      function functionFxLine(x) { return 3*x*x - 9 }
+
+      function functionKx(xk, fx, fxLine) { 
+        return xk - (fx / fxLine)
+       }
+
+      function newtonMethod() {
+        let N = parseInt(document.getElementById('i').value);
+        let a = parseFloat(document.getElementById('a').value);
+        let b = parseFloat(document.getElementById('b').value);
+        let initialValue = parseFloat(document.getElementById('initialValue').value);
+        let error = parseFloat(document.getElementById('erro').value);
+
+        let i = 1;
+        while (i < N) {
+          if (initialValue >= a && initialValue <= b) {
+
+            let resultFx = functionFx(initialValue);
+
+            let resultFxLine = functionFxLine(initialValue);
+
+            let xk = functionKx(initialValue, resultFx, resultFxLine);
+
+
+            let alfa = Math.abs(resultFx);
+
+            let th = `<th scope="row" id="loop">${i++}</th>`;
+
+            let td = `
+                    <td>${initialValue}</td>
+                    <td>${resultFxLine}</td>
+                    <td>${resultFx}</td>
+                    <td>${alfa}</td>
+                    `;
+
+            let tbody = document.getElementById("table");
+            tbody.innerHTML += `<tr> ${th}${td}</tr>`
+
+            if (alfa <= error) {
+              break;
+            } else {
+              initialValue = xk
+            }
+          } else {
+            alert(`Valor ${initialValue} ultrapossou os limites da funcao [${a}, ${b}]`)
+            break;
+          }
+        }
+      }
+    </script>
+    <!-- JavaScript (Opcional) -->
+    <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
