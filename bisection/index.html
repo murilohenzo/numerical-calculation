@@ -28,9 +28,8 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">a</th>
-                <th scope="col">a + b / 2</th>
-                <th scope="col">b</th>
+                <th scope="col">X</th>
+                <th scope="col">F(X)</th>
                 <th scope="col">Error</th>
               </tr>
             </thead>
@@ -53,7 +52,7 @@
     </style>
 
     <script>
-      function functionFx(x) { return x*x - 4*x + 3 }
+      function functionFx(x) { return x*x*x - 2*x*x - 4*x + 4 }
 
       function bisectionMethod() {
         let N = parseFloat(document.getElementById('i').value);
@@ -64,16 +63,20 @@
         let i = 1;
         while (i < N) {
           let pm = (a + b) / 2;
+
+          console.log("A = ", a, "B = ", b)
+          console.log("PM = ", pm)
           let Fpm = functionFx(pm);
+
+          console.log("F(X) = ", Fpm)
 
           let verifyError = Math.abs(a - pm);
 
           let th = `<th scope="row" id="loop">${i++}</th>`;
 
           let td = `
-                  <td>${a}</td>
                   <td>${pm}</td>
-                  <td>${b}</td>
+                  <td>${Fpm}</td>
                   <td>${verifyError}</td>
                    `;
 
@@ -84,9 +87,9 @@
             break;
           } else {
             if (Fpm < 0) {
-              a = pm;
-            } else {
               b = pm;
+            } else {
+              a = pm;
             }
           }
         }

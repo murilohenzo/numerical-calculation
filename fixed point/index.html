@@ -32,7 +32,6 @@
                 <th scope="col">Valor</th>
                 <th scope="col">f'(x)</th>
                 <th scope="col">f(x)</th>
-                <th scope="col">Error</th>
               </tr>
             </thead>
             <tbody id="table">
@@ -54,12 +53,10 @@
     </style>
 
     <script>
-      function functionFx(x) { return x*x*x - 9*x + 5 }
+      function functionFx(x) { return x*x - 5*x + 6 }
 
       function functionPhiX(x) { 
-        console.log(x)
-        console.log(x*x*x + 5)
-        return ((x*x*x + 5) / 9)
+        return ((x*x + 6) / 5)
        }
 
       function fixedPositionMethod() {
@@ -88,9 +85,7 @@
             let td = `
                     <td>${initialValue}</td>
                     <td>${resultPhiValue}</td>
-                    <td>${resultFx}</td>
-                    <td>${alfa}</td>
-                    `;
+                    <td>${resultFx}</td>                    `;
 
             let tbody = document.getElementById("table");
             tbody.innerHTML += `<tr> ${th}${td}</tr>`

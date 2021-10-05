@@ -56,7 +56,7 @@
     </style>
 
     <script>
-      function functionFx(x) { return x * Math.log10(x) - 1 }
+      function functionFx(x) { return Math.pow(x, 3) - 2*Math.pow(x, 2) -4*x + 4 }
       
       function CalculateXk(a, b, fa, fb) {
         let xk = (a*fb - b*fa) / (fb - fa);
@@ -100,9 +100,9 @@
             break;
           } else {
             if (Fxk < 0) {
-              a = xk;
-            } else {
               b = xk;
+            } else {
+              a = xk;
             }
           }
         }
